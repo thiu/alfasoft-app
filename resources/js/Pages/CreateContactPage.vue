@@ -15,9 +15,9 @@ const props = defineProps({
 const user = usePage().props.auth.user;
 
 const form = useForm({
-    name: props.contact.name,
-    email: props.contact.email,
-    contact: props.contact.contact
+    name: '',
+    email: '',
+    contact: '',
 });
 
 
@@ -28,7 +28,7 @@ const form = useForm({
 
     <LayoutPage>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Editando {{ contact.name }}</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Cadastrar Contato</h2>
         </template>
 
         <div class="py-6">
@@ -43,7 +43,7 @@ const form = useForm({
                 </div>
 
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                     <form @submit.prevent="form.put(route('contacts.update', contact.id))" class="mt-6 space-y-6">
+                     <form @submit.prevent="form.post(route('contacts.store'))" class="mt-6 space-y-6">
                         <div>
                             <InputLabel for="name" value="Nome" />
                             <TextInput
@@ -85,11 +85,9 @@ const form = useForm({
                         </div>
                         <div class="flex items-center justify-between gap-4">
                             <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
-                            <Link method="delete" as="button" :href="route('contacts.destroy', contact.id)">
-                                <span class="cursor-pointer inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                    DELETAR
-                                </span>
-                            </Link>
+                            <span class="cursor-pointer inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                DELETAR
+                            </span>
                         </div>
                         <Transition
                             enter-active-class="transition ease-in-out"

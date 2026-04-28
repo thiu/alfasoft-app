@@ -27,9 +27,11 @@ defineProps({
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
                 <div class="flex justify-end">
-                    <button class="mb-3 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                     <Link :href="route('contacts.create')">
+                        <button class="mb-3 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" v-if="$page.props.auth.user" >
                         Novo
                     </button>
+                    </Link>
                 </div>
 
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -51,7 +53,7 @@ defineProps({
                                     <th scope="col" class="px-6 py-3 font-medium">
                                         E-mail
                                     </th>
-                                    <th scope="col" class="flex justify-center px-6 py-3 font-medium">
+                                    <th scope="col" class="flex justify-center px-6 py-3 font-medium" v-if="$page.props.auth.user" >
                                         Ações
                                     </th>
                                 </tr>
@@ -70,14 +72,14 @@ defineProps({
                                     <td class="px-6 py-4">
                                     {{ contact.email }}
                                     </td>
-                                    <td class="px-6 py-4 flex justify-center px-6 py-3 font-medium">
+                                    <td class="px-6 py-4 flex justify-center px-6 py-3 font-medium" v-if="$page.props.auth.user" >
                                          <Link
-                                                :href="route('contacts.edit', contact.id)"
-                                            >
-                                            <button class="mr-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                                                        Ver
-                                                            </button>
-                                            </Link>
+                                            :href="route('contacts.edit', contact.id)"
+                                        >
+                                        <button class="mr-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                                                                    Ver
+                                                        </button>
+                                        </Link>
                                     </td>
                                 </tr>
                             </tbody>

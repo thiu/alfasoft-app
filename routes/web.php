@@ -35,6 +35,9 @@ Route::middleware('auth')->group(function () {
         Route::controller(ContactsController::class)->group(function() {
             Route::get('/{id}/edit', 'edit')->name('edit');
             Route::put('/{id}', 'update')->name('update');
+            Route::delete('/{id}', 'destroy')->name('destroy');
+            Route::get('/create', 'create')->name('create');
+            Route::post('', 'store')->name('store');
         });
     });
 

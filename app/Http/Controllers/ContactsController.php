@@ -23,6 +23,19 @@ class ContactsController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        return Inertia::render('CreateContactPage', [
+            'canLogin' => Route::has('login')
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        Contact::create($request->all());
+        return to_route('home');
+    }
+
     public function edit(int $id)
     {
         return Inertia::render('EditContactPage', [
@@ -40,5 +53,12 @@ class ContactsController extends Controller
     {
         $data = Contact::find($id);
         $data->update($request->all());
+        return to_route('home');
+    }
+
+    public function destroy(int $id)
+    {
+        Contact::destroy($id);
+        return to_route('home');
     }
 }
