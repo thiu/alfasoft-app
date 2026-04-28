@@ -1,6 +1,6 @@
 <script setup>
 import LayoutPage from '@/Layouts/LayoutPage.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 
 defineProps({
     canLogin: {
@@ -71,34 +71,13 @@ defineProps({
                                     {{ contact.email }}
                                     </td>
                                     <td class="px-6 py-4 flex justify-center px-6 py-3 font-medium">
-                                        <button class="mr-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                            Editar
-                                        </button>
-                                        <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                                            Deletar
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr class="bg-neutral-primary border-b border-default">
-                                    <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
-                                        2
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        Natalia
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        +55 11 99999-9999
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        natalia@gmail.com
-                                    </td>
-                                    <td class="px-6 py-4 flex justify-center px-6 py-3 font-medium">
-                                        <button class="mr-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                            Editar
-                                        </button>
-                                        <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                                            Deletar
-                                        </button>
+                                         <Link
+                                                :href="route('contacts.edit', contact.id)"
+                                            >
+                                            <button class="mr-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                                                                        Ver
+                                                            </button>
+                                            </Link>
                                     </td>
                                 </tr>
                             </tbody>
