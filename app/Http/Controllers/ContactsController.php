@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
@@ -30,7 +31,7 @@ class ContactsController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(ContactRequest $request)
     {
         Contact::create($request->all());
         return to_route('home');
@@ -49,11 +50,10 @@ class ContactsController extends Controller
         ]);
     }
 
-    public function update(Request $request, int $id)
+    public function update(ContactRequest $request, int $id)
     {
         $data = Contact::find($id);
         $data->update($request->all());
-        return to_route('home');
     }
 
     public function destroy(int $id)

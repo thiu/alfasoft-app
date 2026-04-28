@@ -4,22 +4,27 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import LayoutPage from '@/Layouts/LayoutPage.vue';
-import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
-
+import { Head, Link, router } from '@inertiajs/vue3';
+import { useForm } from 'laravel-precognition-vue';
 const props = defineProps({
     contact: {
         type: Object,
     }
 });
 
-const user = usePage().props.auth.user;
-
-const form = useForm({
+const form = useForm('put', route('contacts.update', props.contact.id), {
     name: props.contact.name,
     email: props.contact.email,
     contact: props.contact.contact
 });
 
+
+const submit = () => form.submit({
+    onSuccess: (res) => {
+        form.reset()
+        router.get('/', { preserveState: true })
+    }
+});
 
 </script>
 
@@ -43,7 +48,6 @@ const form = useForm({
                 </div>
 
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                     <form @submit.prevent="form.put(route('contacts.update', contact.id))" class="mt-6 space-y-6">
                         <div>
                             <InputLabel for="name" value="Nome" />
                             <TextInput
@@ -83,22 +87,14 @@ const form = useForm({
                             />
                             <InputError class="mt-2" :message="form.errors.contact" />
                         </div>
-                        <div class="flex items-center justify-between gap-4">
-                            <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+                        <div class="flex items-center justify-between gap-4 mt-4">
+                            <PrimaryButton @click="submit" :disabled="form.processing">Save</PrimaryButton>
                             <Link method="delete" as="button" :href="route('contacts.destroy', contact.id)">
                                 <span class="cursor-pointer inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                     DELETAR
                                 </span>
                             </Link>
                         </div>
-                        <Transition
-                            enter-active-class="transition ease-in-out"
-                            enter-from-class="opacity-0"
-                            leave-active-class="transition ease-in-out"
-                            leave-to-class="opacity-0"
-                        ><p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
-                        </Transition>
-                </form>
                 </div>
             </div>
         </div>

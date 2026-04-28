@@ -3,6 +3,8 @@
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
+
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -38,7 +40,7 @@ Route::middleware('auth')->group(function () {
             Route::delete('/{id}', 'destroy')->name('destroy');
             Route::get('/create', 'create')->name('create');
             Route::post('', 'store')->name('store');
-        });
+        })->middleware([HandlePrecognitiveRequests::class]);
     });
 
 
