@@ -1,1 +1,2 @@
-Sistema desenvolvido como teste para AlfaSoft.
+Sistema básico de CRUD de contatos.
+Desenvolvido para avaliação técnica na Alfasoft. 
