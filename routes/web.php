@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -16,13 +17,13 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('ContactsPage', [
-        'canLogin' => Route::has('login'),
-    ]);
-})->name('home');
+// Route::get('/', function () {
+//     return Inertia::render('ContactsPage', [
+//         'canLogin' => Route::has('login'),
+//     ]);
+// })->name('home');
 
-
+Route::get('/', [ContactsController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

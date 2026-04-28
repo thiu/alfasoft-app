@@ -5,6 +5,9 @@ import { Head } from '@inertiajs/vue3';
 defineProps({
     canLogin: {
         type: Boolean,
+    },
+    contacts: {
+        type: Object
     }
 });
 
@@ -54,18 +57,18 @@ defineProps({
                                 </tr>
                              </thead>
                             <tbody>
-                                <tr class="bg-neutral-primary border-b border-default">
+                                <tr class="bg-neutral-primary border-b border-default" v-for="(contact, i) in contacts">
                                     <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
-                                        1
+                                     {{ contact.id }}
                                     </th>
                                     <td class="px-6 py-4">
-                                        Thiago
+                                    {{ contact.name }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        +55 11 93304-9483
+                                    {{ contact.contact }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        rsoares.thiago@gmail.com
+                                    {{ contact.email }}
                                     </td>
                                     <td class="px-6 py-4 flex justify-center px-6 py-3 font-medium">
                                         <button class="mr-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
