@@ -7,8 +7,6 @@ use App\Models\Contact;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 
-use Illuminate\Http\Request;
-
 class ContactsController extends Controller
 {
     public function index()
@@ -33,8 +31,9 @@ class ContactsController extends Controller
 
     public function store(ContactRequest $request)
     {
-        Contact::create($request->all());
-        return to_route('home');
+        Contact::create($request->validated());
+
+        return to_route('home', [], 303);
     }
 
     public function edit(int $id)
@@ -52,8 +51,10 @@ class ContactsController extends Controller
 
     public function update(ContactRequest $request, int $id)
     {
-        $data = Contact::find($id);
-        $data->update($request->all());
+        $data = Contact::findOrFail($id);
+        $data->update($request->validated());
+
+        return to_route('home', [], 303);
     }
 
     public function destroy(int $id)

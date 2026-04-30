@@ -2,11 +2,9 @@
 
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,14 +31,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::prefix('contacts')->name('contacts.')->group(function () {
-
-        Route::controller(ContactsController::class)->group(function() {
+        Route::middleware([HandlePrecognitiveRequests::class])->controller(ContactsController::class)->group(function() {
             Route::get('/{id}/edit', 'edit')->name('edit');
             Route::put('/{id}', 'update')->name('update');
             Route::delete('/{id}', 'destroy')->name('destroy');
             Route::get('/create', 'create')->name('create');
             Route::post('', 'store')->name('store');
-        })->middleware([HandlePrecognitiveRequests::class]);
+        });
     });
 
 

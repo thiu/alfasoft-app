@@ -7,13 +7,7 @@ import LayoutPage from '@/Layouts/LayoutPage.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { useForm } from 'laravel-precognition-vue';
 
-const props = defineProps({
-    contact: {
-        type: Object,
-    }
-});
-
-const form = useForm('post', '/contacts', {
+const form = useForm('post', route('contacts.store'), {
     name: '',
     email: '',
     contact: '',
@@ -21,9 +15,9 @@ const form = useForm('post', '/contacts', {
 
 
 const submit = () => form.submit({
-    onSuccess: (res) => {
+    onSuccess: () => {
         form.reset()
-        router.get('/', { preserveState: true })
+        router.get(route('home'))
     }
 });
 
@@ -49,7 +43,7 @@ const submit = () => form.submit({
                 </div>
 
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                     <form @submit.prevent="form.post(route('contacts.store'))" class="mt-6 space-y-6">
+                     <form @submit.prevent="submit" class="mt-6 space-y-6">
                         <div>
                             <InputLabel for="name" value="Nome" />
                             <TextInput
@@ -90,7 +84,7 @@ const submit = () => form.submit({
                             <InputError class="mt-2" :message="form.errors.contact" />
                         </div>
                         <div class="flex items-center justify-between gap-4">
-                            <PrimaryButton @click="submit" :disabled="form.processing">Save</PrimaryButton>
+                            <PrimaryButton type="submit" :disabled="form.processing">Save</PrimaryButton>
                         </div>
                 </form>
                 </div>

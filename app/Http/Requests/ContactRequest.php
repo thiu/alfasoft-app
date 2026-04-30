@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Http\Request;
 
 class ContactRequest extends FormRequest
 {
@@ -21,8 +20,10 @@ class ContactRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(Request $request): array
+    public function rules(): array
     {
+        $contactId = $this->route('id');
+
         return [
             'name' => [
                 'required',
@@ -31,13 +32,13 @@ class ContactRequest extends FormRequest
             ],
             'contact' => [
                 'required',
-                Rule::unique('contacts')->ignore($request->id),
+                Rule::unique('contacts')->ignore($contactId),
                 'digits:9'
             ],
             'email' => [
                 'email',
                 'required',
-                Rule::unique('contacts')->ignore($request->id)
+                Rule::unique('contacts')->ignore($contactId)
             ]
         ];
     }
